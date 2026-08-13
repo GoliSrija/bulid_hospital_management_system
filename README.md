@@ -6,7 +6,7 @@ AI Generated Project
 
 Gemini Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
 * Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash
-Please retry in 20.139793085s. [links {
+Please retry in 36.398583078s. [links {
   description: "Learn more about Gemini API quotas"
   url: "https://ai.google.dev/gemini-api/docs/rate-limits"
 }
@@ -24,7 +24,7 @@ Please retry in 20.139793085s. [links {
   quota_value: 20
 }
 , retry_delay {
-  seconds: 20
+  seconds: 36
 }
 ]
 
@@ -32,7 +32,7 @@ Please retry in 20.139793085s. [links {
 
 Gemini Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
 * Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash
-Please retry in 20.45010715s. [links {
+Please retry in 36.647016717s. [links {
   description: "Learn more about Gemini API quotas"
   url: "https://ai.google.dev/gemini-api/docs/rate-limits"
 }
@@ -50,7 +50,7 @@ Please retry in 20.45010715s. [links {
   quota_value: 20
 }
 , retry_delay {
-  seconds: 20
+  seconds: 36
 }
 ]
 
@@ -58,7 +58,7 @@ Please retry in 20.45010715s. [links {
 
 Gemini Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
 * Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash
-Please retry in 20.623646199s. [links {
+Please retry in 36.956503015s. [links {
   description: "Learn more about Gemini API quotas"
   url: "https://ai.google.dev/gemini-api/docs/rate-limits"
 }
@@ -76,6 +76,6 @@ Please retry in 20.623646199s. [links {
   quota_value: 20
 }
 , retry_delay {
-  seconds: 20
+  seconds: 36
 }
 ]
