@@ -1,2 +1,2 @@
 
-console.log('AI Software Development Team Project Generated Successfully');
+console.log('Project Generated Successfully');
