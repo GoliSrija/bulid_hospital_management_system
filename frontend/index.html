@@ -1,81 +1,92 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/app.js" defer></script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <div class="nav-content">
+                <a href="#home" class="nav-item">Home</a>
+                <a href="#login" class="nav-item">Login</a>
+                <a href="#register" class="nav-item">Register</a>
+                <a href="#dashboard" class="nav-item">Dashboard</a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="container">
-        <header>
-            <h1>Hospital Management System</h1>
-        </header>
+    <main>
+        <section id="home">
+            <h1>Welcome to the Hospital Management System</h1>
+            <p>Improve patient care and administrative workflows with our modern, responsive platform.</p>
+        </section>
 
-        <main>
-            <section class="login">
-                <h2>Login</h2>
-                <form>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                    <button type="submit">Login</button>
-                </form>
-            </section>
+        <section id="login">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
 
-            <section class="register">
-                <h2>Register</h2>
-                <form>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <button type="submit">Register</button>
-                </form>
-            </section>
+        <section id="register">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Register</button>
+            </form>
+        </section>
 
-            <section class="dashboard">
-                <h2>Dashboard</h2>
-                <p>Welcome to the Dashboard</p>
-            </section>
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <p>Welcome to your Dashboard!</p>
+        </section>
 
-            <section class="project-generation">
-                <h2>Generate Project</h2>
-                <form>
-                    <label for="project-name">Project Name:</label>
-                    <input type="text" id="project-name" name="project-name" required>
-                    <label for="prompt">Prompt:</label>
-                    <input type="text" id="prompt" name="prompt" required>
-                    <button type="submit">Generate</button>
-                </form>
-            </section>
+        <section id="project-generation">
+            <h2>Generate Project</h2>
+            <form id="project-generation-form">
+                <label for="prompt">Project Idea:</label>
+                <textarea id="prompt" name="prompt" required></textarea>
+                <button type="submit">Generate Project</button>
+            </form>
+        </section>
 
-            <section class="project-history">
-                <h2>Project History</h2>
-                <ul>
-                    <li>Project 1 - Completed</li>
-                    <li>Project 2 - In Progress</li>
-                    <li>Project 3 - Failed</li>
-                </ul>
-            </section>
+        <section id="project-history">
+            <h2>Project History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project ID</th>
+                        <th>Project Idea</th>
+                        <th>Status</th>
+                        <th>Generated On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Project history data will be populated here -->
+                </tbody>
+            </table>
+        </section>
 
-            <section class="logout">
-                <button>Logout</button>
-            </section>
-        </main>
-    </div>
+        <section id="logout">
+            <button id="logout-btn">Logout</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Hospital Management System. All rights reserved.</p>
+    </footer>
 </body>
 </html>
-```

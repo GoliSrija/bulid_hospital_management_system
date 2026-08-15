@@ -122,7 +122,7 @@ Develop a secure, scalable, and maintainable Flask backend.
 ## Database Design
 
 Database Name:
-HospitalDB
+HMSDB
 
 Database Type:
 - PostgreSQL
@@ -130,8 +130,9 @@ Database Type:
 Main Tables:
 - Patient
 - Appointment
-- Billing
-- Inventory
+- Medication
+- Financial
+- PatientPortal
 - Communication
 
 Table Details:
@@ -139,45 +140,96 @@ Table Details:
 Table Name: Patient
 
 Columns:
-- id : SERIAL
-- name : VARCHAR(100)
-- gender : VARCHAR(10)
-- date_of_birth : DATE
-- contact_info : VARCHAR(150)
-- address : VARCHAR(255)
-- phone_number : VARCHAR(15)
-- email : VARCHAR(150)
-- medical_history : TEXT
-- allergies : TEXT
-- patient_notes : TEXT
+- PatientID : SERIAL PRIMARY KEY
+- FirstName : VARCHAR(100)
+- LastName : VARCHAR(100)
+- MedicalID : VARCHAR(20)
+- DOB : DATE
+- Gender : VARCHAR(10)
+- Email : VARCHAR(150)
+- PhoneNumber : VARCHAR(20)
+- MedicalHistory : TEXT
+- TestResults : TEXT
+- MedicationDetails : TEXT
+- LastVisitDate : DATE
+- PatientStatus : BOOLEAN
 
-Primary Key:
-- id
+Table Name: Appointment
 
-Foreign Keys:
-- None
+Columns:
+- AppointmentID : SERIAL PRIMARY KEY
+- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
+- DoctorID : INTEGER NOT NULL REFERENCES Doctor(DoctorID)
+- AppointmentDate : DATE
+- AppointmentTime : TIME
+- AppointmentStatus : BOOLEAN
+
+Table Name: Medication
+
+Columns:
+- MedicationID : SERIAL PRIMARY KEY
+- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
+- MedicationName : VARCHAR(100)
+- PrescriptionDate : DATE
+- RefillDate : DATE
+- MedicationDosage : TEXT
+- PrescribedBy : VARCHAR(100)
+
+Table Name: Financial
+
+Columns:
+- FinancialID : SERIAL PRIMARY KEY
+- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
+- PaymentAmount : DECIMAL(10, 2)
+- PaymentDate : DATE
+- PaymentStatus : BOOLEAN
+- PaymentMethod : VARCHAR(50)
+
+Table Name: PatientPortal
+
+Columns:
+- PortalID : SERIAL PRIMARY KEY
+- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
+- PortalAccess : BOOLEAN
+- LastAccessDate : DATE
+
+Table Name: Communication
+
+Columns:
+- CommunicationID : SERIAL PRIMARY KEY
+- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
+- MessageContent : TEXT
+- MessageDate : DATE
+- MessageStatus : BOOLEAN
 
 Relationships:
-- None
+- Patient (1) has many Appointments (1)
+- Patient (1) has many Medications (1)
+- Patient (1) has many Financial Transactions (1)
+- Patient (1) has many Portal Access Logs (1)
+- Patient (1) has many Communication Messages (1)
 
 Indexes:
-- id
-- name
+- Index 1 on Patient (PatientID)
+- Index 2 on Appointment (PatientID)
+- Index 3 on Medication (PatientID)
+- Index 4 on Financial (PatientID)
+- Index 5 on PatientPortal (PatientID)
+- Index 6 on Communication (PatientID)
 
 Constraints:
-- id: NOT NULL
-- name: NOT NULL
-- medical_history: NOT NULL
-- allergies: NOT NULL
-- patient_notes: NOT NULL
+- NOT NULL: PatientID, AppointmentID, MedicationID, FinancialID, PortalID in all tables
+- UNIQUE: None explicitly stated, but implicitly enforced by the primary key and relationships
+- FOREIGN KEY: PatientID, DoctorID in Appointment table, PatientID in Medication table, PatientID in Financial table, PatientID in PatientPortal table, PatientID in Communication table
+- CHECK: None explicitly stated
 
 Normalization:
-- First Normal Form (1NF)
-- Second Normal Form (2NF)
-- Third Normal Form (3NF)
+- First Normal Form (1NF): All columns are atomic and there are no repeating groups.
+- Second Normal Form (2NF): Patient table is in 2NF as all non-primary columns depend only on the primary key.
+- Third Normal Form (3NF): Patient table is in 3NF as all non-primary columns do not have any transitive dependencies on the primary key.
 
 Security Considerations:
-- Data Encryption: Patient notes, medical history, and allergies will be encrypted.
-- User Authentication: JWT for user sessions.
-- Role-Based Access Control: Roles for different user types (Administrators, Nurses, Doctors) will be defined.
-- Backup Strategy: Regular backups with secure encryption and scheduled rollbacks.
+- Data Encryption: Sensitive data such as medical history, test results, and medication details should be encrypted both at rest and in transit.
+- User Authentication: OAuth 2.0 should be used for secure user authentication and authorization.
+- Role-Based Access Control: Different roles (Administrator, Doctor, Patient) should have different levels of access to different parts of the system.
+- Backup Strategy: Regular backups should be scheduled and stored in a secure, off-site location.
