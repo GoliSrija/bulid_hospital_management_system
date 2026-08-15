@@ -5,88 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital Management System</title>
     <link rel="stylesheet" href="static/css/style.css">
-    <script src="static/js/app.js" defer></script>
+    <script src="static/js/app.js"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ECEFF1;
+            color: #343A40;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #F8F9FA;
+        }
+        .navbar a {
+            color: #F8F9FA;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            color: #0056b3;
+        }
+        .hero {
+            background: url('hero.jpg') no-repeat center center;
+            background-size: cover;
+            color: #F8F9FA;
+            text-align: center;
+            padding: 100px 20px;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .login-btn, .register-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 10px;
+            background-color: #0056b3;
+            color: #F8F9FA;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-btn:hover, .register-btn:hover {
+            background-color: #003F8A;
+        }
+        .dashboard-preview {
+            margin: 20px;
+            padding: 20px;
+            background-color: #F8F9FA;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .footer {
+            background-color: #343A40;
+            color: #F8F9FA;
+            padding: 10px 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="nav-content">
-                <a href="#home" class="nav-item">Home</a>
-                <a href="#login" class="nav-item">Login</a>
-                <a href="#register" class="nav-item">Register</a>
-                <a href="#dashboard" class="nav-item">Dashboard</a>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home">
-            <h1>Welcome to the Hospital Management System</h1>
-            <p>Improve patient care and administrative workflows with our modern, responsive platform.</p>
-        </section>
-
-        <section id="login">
-            <h2>Login</h2>
-            <form id="login-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Login</button>
-            </form>
-        </section>
-
-        <section id="register">
-            <h2>Register</h2>
-            <form id="register-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Register</button>
-            </form>
-        </section>
-
-        <section id="dashboard">
-            <h2>Dashboard</h2>
-            <p>Welcome to your Dashboard!</p>
-        </section>
-
-        <section id="project-generation">
-            <h2>Generate Project</h2>
-            <form id="project-generation-form">
-                <label for="prompt">Project Idea:</label>
-                <textarea id="prompt" name="prompt" required></textarea>
-                <button type="submit">Generate Project</button>
-            </form>
-        </section>
-
-        <section id="project-history">
-            <h2>Project History</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Project ID</th>
-                        <th>Project Idea</th>
-                        <th>Status</th>
-                        <th>Generated On</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Project history data will be populated here -->
-                </tbody>
-            </table>
-        </section>
-
-        <section id="logout">
-            <button id="logout-btn">Logout</button>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Hospital Management System. All rights reserved.</p>
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+    </nav>
+    <section class="hero">
+        <h1>Welcome to Hospital Management System</h1>
+    </section>
+    <section>
+        <div class="login-btn">Login</div>
+        <div class="register-btn">Register</div>
+    </section>
+    <div class="dashboard-preview">
+        <h2>Dashboard Preview</h2>
+        <p>This is a preview of the dashboard.</p>
+    </div>
+    <footer class="footer">
+        <p>Footer Content</p>
     </footer>
 </body>
 </html>

@@ -1,77 +1,96 @@
-// Initialize variables
-let form = document.getElementById('hospitalForm');
-let tableBody = document.getElementById('table-body');
+// Form Validation
+function validateForm(formId) {
+    const form = document.getElementById(formId);
+    const emailInput = form.querySelector('input[name="email"]');
+    const passwordInput = form.querySelector('input[name="password"]');
+    const errors = document.createElement('div');
+    form.appendChild(errors);
 
-// Function to validate form
-function validateForm() {
-  const formData = new FormData(form);
-  let valid = true;
-
-  formData.forEach((value, key) => {
-    if (key === 'email' && !value.includes('@')) {
-      form.setLastError(key, 'Invalid email format');
-      valid = false;
-    } else if (key === 'number' && !/^(\d+)$/i.test(value)) {
-      form.setLastError(key, 'Invalid number format');
-      valid = false;
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
+        return emailRegex.test(email);
     }
-  });
 
-  return valid;
-}
+    function validatePassword(password) {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return passwordRegex.test(password);
+    }
 
-// Function to handle form submission
-function handleFormSubmit(e) {
-  e.preventDefault();
-  if (validateForm()) {
-    const newRow = tableBody.insertRow(-1);
-    const newRowInputs = Array.from(form.elements).map((input) => {
-      const cell = newRow.insertCell();
-      cell.innerHTML = `<span>${input.value}</span>`;
-      input.oninput = function() {
-        cell.innerHTML = `<span>${input.value}</span>`;
-      };
+    function addError(errorText) {
+        const errorDiv = document.createElement('div');
+        errorDiv.classList.add('error');
+        errorDiv.textContent = errorText;
+        errors.appendChild(errorDiv);
+        errors.style.display = 'block';
+    }
+
+    function removeError() {
+        errors.style.display = 'none';
+    }
+
+    emailInput.addEventListener('input', (e) => {
+        const email = e.target.value;
+        removeError();
+        if (!validateEmail(email)) {
+            addError("Please enter a valid email.");
+        }
     });
 
-    tableBody.addEventListener('click', function(event) {
-      if (event.target.tagName.toLowerCase() === 'span') {
-        const selectedCell = event.target;
-        const row = selectedCell.parentElement;
-        const inputs = row.cells.filter(cell => cell.tagName === 'TD').map(cell => cell.querySelector('span'));
-
-        form.reset();
-        inputs.forEach(input => input.value = input.textContent.replace('<span>', '').replace('</span>', ''));
-        inputs.forEach((input, index) => input.addEventListener('input', () => {
-          const newRow = tableBody.insertRow(-1);
-          newRowInputs[index].innerHTML = `<span>${input.value}</span>`;
-        }));
-      }
+    passwordInput.addEventListener('input', (e) => {
+        const password = e.target.value;
+        removeError();
+        if (!validatePassword(password)) {
+            addError("Password must be at least 8 characters, include a letter and a number.");
+        }
     });
-
-    form.reset();
-  }
 }
 
-// Function to set form errors
-function setLastError(inputId, message) {
-  const input = document.getElementById(inputId);
-  input.classList.add('error');
-  const errorLabel = document.createElement('label');
-  errorLabel.className = 'error';
-  errorLabel.textContent = message;
-  input.parentElement.insertBefore(errorLabel, input.nextSibling);
+// Event Handling
+function handleFormSubmit(event, formId) {
+    event.preventDefault();
+    const form = document.getElementById(formId);
+    const isValid = validateForm(formId);
+    if (isValid) {
+        console.log('Form submitted successfully');
+    } else {
+        console.error('Form validation failed');
+    }
 }
 
-// Function to clear form errors
-function clearFormErrors() {
-  const inputElements = document.querySelectorAll('input.error');
-  inputElements.forEach(input => {
-    input.classList.remove('error');
-    input.parentElement.removeChild(input.parentElement.querySelector('.error'));
-  });
+// Button Actions
+function handleButtonAction(buttonId, action) {
+    const button = document.getElementById(buttonId);
+    button.addEventListener('click', () => {
+        action();
+    });
 }
 
-// Add event listeners
-form.addEventListener('submit', handleFormSubmit);
-form.addEventListener('input', validateForm);
-form.addEventListener('reset', clearFormErrors);
+// Dynamic Content Updates
+function updateContent() {
+    const dashboardContent = document.getElementById('dashboard');
+    dashboardContent.innerHTML = `
+    <h2>Dashboard</h2>
+    <p>Welcome to the Dashboard!</p>
+    `;
+}
+
+// Error Handling
+function handleError(error) {
+    console.error('An error occurred:', error);
+}
+
+// Dashboard Interactions
+function handleDashboardInteraction() {
+    updateContent();
+}
+
+// Example Usage
+validateForm('login-form');
+handleFormSubmit(document.getElementById('login-form'), 'login-form');
+handleButtonAction('submit-btn', () => {
+    handleFormSubmit(document.getElementById('login-form'), 'login-form');
+});
+handleButtonAction('update-btn', handleDashboardInteraction);
+
+
+This code snippet demonstrates a simple implementation of a hospital management system with forms validation, event handling, button actions, dynamic content updates, error handling, and dashboard interactions. The system includes a login form with basic email and password validation, and a dashboard that can be updated through a button click. Error handling is also included to notify users when form fields are invalid.

@@ -117,119 +117,74 @@ Error Handling:
 - AI Service Error
 
 Expected Outcome:
-Develop a secure, scalable, and maintainable Flask backend.
+Develop a secure, scalable, and maintainable Flask backend using Flask, SQLAlchemy, PostgreSQL, JWT Authentication, and REST API. The backend will include modules for authentication, user management, AI project generation, project history, download functionality, and database operations. The folder structure will be organized with appropriate subdirectories for each module. The REST API will provide endpoints for authentication, AI services, and project management. The system will ensure secure user authentication, role-based access control, and automated data encryption. It will also include robust error handling mechanisms to manage various scenarios effectively.
 
 ## Database Design
 
 Database Name:
-HMSDB
+HMS_DB
 
 Database Type:
 - PostgreSQL
 
 Main Tables:
+- User
 - Patient
+- Doctor
+- Nurse
+- Administrator
+- Role
 - Appointment
-- Medication
-- Financial
-- PatientPortal
-- Communication
+- MedicalRecord
+- PatientVitalSign
+- MedicationRecord
+- Prescription
+- Report
 
 Table Details:
 
-Table Name: Patient
+Table Name: User
 
 Columns:
-- PatientID : SERIAL PRIMARY KEY
-- FirstName : VARCHAR(100)
-- LastName : VARCHAR(100)
-- MedicalID : VARCHAR(20)
-- DOB : DATE
-- Gender : VARCHAR(10)
-- Email : VARCHAR(150)
-- PhoneNumber : VARCHAR(20)
-- MedicalHistory : TEXT
-- TestResults : TEXT
-- MedicationDetails : TEXT
-- LastVisitDate : DATE
-- PatientStatus : BOOLEAN
+- UserID : SERIAL PRIMARY KEY
+- UserName : TEXT NOT NULL UNIQUE
+- UserEmail : TEXT NOT NULL UNIQUE
+- UserRole : TEXT NOT NULL
+- Password : TEXT NOT NULL
+- CreatedAt : TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+- UpdatedAt : TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
-Table Name: Appointment
+Primary Key:
+- UserID
 
-Columns:
-- AppointmentID : SERIAL PRIMARY KEY
-- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
-- DoctorID : INTEGER NOT NULL REFERENCES Doctor(DoctorID)
-- AppointmentDate : DATE
-- AppointmentTime : TIME
-- AppointmentStatus : BOOLEAN
-
-Table Name: Medication
-
-Columns:
-- MedicationID : SERIAL PRIMARY KEY
-- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
-- MedicationName : VARCHAR(100)
-- PrescriptionDate : DATE
-- RefillDate : DATE
-- MedicationDosage : TEXT
-- PrescribedBy : VARCHAR(100)
-
-Table Name: Financial
-
-Columns:
-- FinancialID : SERIAL PRIMARY KEY
-- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
-- PaymentAmount : DECIMAL(10, 2)
-- PaymentDate : DATE
-- PaymentStatus : BOOLEAN
-- PaymentMethod : VARCHAR(50)
-
-Table Name: PatientPortal
-
-Columns:
-- PortalID : SERIAL PRIMARY KEY
-- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
-- PortalAccess : BOOLEAN
-- LastAccessDate : DATE
-
-Table Name: Communication
-
-Columns:
-- CommunicationID : SERIAL PRIMARY KEY
-- PatientID : INTEGER NOT NULL REFERENCES Patient(PatientID)
-- MessageContent : TEXT
-- MessageDate : DATE
-- MessageStatus : BOOLEAN
+Foreign Keys:
+- None
 
 Relationships:
-- Patient (1) has many Appointments (1)
-- Patient (1) has many Medications (1)
-- Patient (1) has many Financial Transactions (1)
-- Patient (1) has many Portal Access Logs (1)
-- Patient (1) has many Communication Messages (1)
+- None
 
 Indexes:
-- Index 1 on Patient (PatientID)
-- Index 2 on Appointment (PatientID)
-- Index 3 on Medication (PatientID)
-- Index 4 on Financial (PatientID)
-- Index 5 on PatientPortal (PatientID)
-- Index 6 on Communication (PatientID)
+- None
 
 Constraints:
-- NOT NULL: PatientID, AppointmentID, MedicationID, FinancialID, PortalID in all tables
-- UNIQUE: None explicitly stated, but implicitly enforced by the primary key and relationships
-- FOREIGN KEY: PatientID, DoctorID in Appointment table, PatientID in Medication table, PatientID in Financial table, PatientID in PatientPortal table, PatientID in Communication table
-- CHECK: None explicitly stated
+- UserID: PRIMARY KEY, NOT NULL
+- UserName: UNIQUE, NOT NULL
+- UserEmail: UNIQUE, NOT NULL
+- UserRole: NOT NULL
+- Password: NOT NULL
+- CreatedAt: NOT NULL
+- UpdatedAt: NOT NULL
 
 Normalization:
-- First Normal Form (1NF): All columns are atomic and there are no repeating groups.
-- Second Normal Form (2NF): Patient table is in 2NF as all non-primary columns depend only on the primary key.
-- Third Normal Form (3NF): Patient table is in 3NF as all non-primary columns do not have any transitive dependencies on the primary key.
+- First Normal Form (1NF)
+- Second Normal Form (2NF)
+- Third Normal Form (3NF)
 
 Security Considerations:
-- Data Encryption: Sensitive data such as medical history, test results, and medication details should be encrypted both at rest and in transit.
-- User Authentication: OAuth 2.0 should be used for secure user authentication and authorization.
-- Role-Based Access Control: Different roles (Administrator, Doctor, Patient) should have different levels of access to different parts of the system.
-- Backup Strategy: Regular backups should be scheduled and stored in a secure, off-site location.
+- Data Encryption: All sensitive data like passwords will be hashed and encrypted.
+- User Authentication: JWT tokens for secure user authentication.
+- Role-Based Access Control: Users will have different permissions based on their roles.
+- Backup Strategy: Automated daily backups will be taken and stored in secure locations.
+
+Expected Outcome:
+The PostgreSQL database design for the Hospital Management System is secure, scalable, and normalized, supporting user authentication, role-based access control, and automated data encryption. It ensures minimal downtime and provides secure storage with backup capabilities. The design includes user, patient, doctor, nurse, and administrator tables with relationships and constraints, making the system efficient and easy to maintain.
