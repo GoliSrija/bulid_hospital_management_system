@@ -8,6 +8,7 @@ Frontend Technology:
 - HTML5
 - CSS3
 - JavaScript
+- Flask Templates
 
 Application Pages:
 - Login Page
@@ -15,35 +16,40 @@ Application Pages:
 - Dashboard
 - Project Generation Page
 - Project History Page
-- Settings Page
 
 UI Components:
 - Navigation Bar
 - Sidebar
-- Cards
-- Forms
-- Buttons
-- Tables
-- Progress Bar
-- Loading Indicator
-- Footer
-
-Dashboard Layout:
-- Header
-- Project Input Section
+- Project Input Form
 - Generate Project Button
-- AI Agent Output Cards
-- Download Project Button
+- Output Cards
+- Download Button
+- Logout Button
+
+Folder Structure:
+templates/
+- layout.html
+- login.html
+- register.html
+- dashboard.html
+- project_input.html
+- generate_project.html
+- project_history.html
+
+static/
+- css/
+- js/
+- images/
 
 User Flow:
-1. User Registration
-2. User Login
-3. Dashboard
-4. Enter Project Prompt
-5. Generate Project
-6. View AI Outputs
-7. Download Project
-8. Logout
+- User Registration
+- User Login
+- Dashboard
+- Enter Project Prompt
+- Generate Project
+- View AI Outputs
+- Download Project
+- Logout
 
 Frontend Features:
 - Responsive Design
@@ -52,35 +58,6 @@ Frontend Features:
 - Progress Bar
 - Error Messages
 - Success Notifications
-
-Folder Structure:
-templates/
-- layout.html
-- login.html
-- register.html
-- dashboard.html
-- project_generation.html
-- project_history.html
-
-static/
-- css/
-- js/
-- images/
-
-User Experience Features:
-- Responsive Design
-- Mobile Friendly
-- Easy Navigation
-- Interactive Cards
-- Progress Indicators
-- Success Messages
-- Error Messages
-
-Accessibility Features:
-- High Contrast
-- Readable Fonts
-- Keyboard Navigation
-- Screen Reader Support
 
 ## Backend Design
 
@@ -100,16 +77,14 @@ Backend Modules:
 - Database Module
 
 Folder Structure:
-- backend/
-  - app.py
-  - config.py
-  - models/
-  - routes/
-  - services/
-  - agents/
-  - orchestrator/
-  - templates/
-  - static/
+backend/
+- app.py
+- config.py
+- models/
+- routes/
+- services/
+- agents/
+- orchestrator/
 
 REST API Endpoints:
 Authentication:
@@ -141,39 +116,43 @@ Error Handling:
 - Database Error
 - AI Service Error
 
+Expected Outcome:
+Develop a secure, scalable, and maintainable Flask backend.
+
 ## Database Design
 
 Database Name:
-HospitalManagementDB
+HospitalDB
 
 Database Type:
 - PostgreSQL
 
 Main Tables:
-- PatientRecords
-- Appointments
-- FinancialTransactions
-- StaffSchedules
-- Reports
+- Patient
+- Appointment
+- Billing
+- Inventory
+- Communication
 
 Table Details:
 
-Table Name: PatientRecords
+Table Name: Patient
 
 Columns:
-- PatientID : SERIAL PRIMARY KEY
-- Name : VARCHAR(255)
-- Gender : VARCHAR(10)
-- Age : INTEGER
-- ContactInfo : VARCHAR(150)
-- Address : VARCHAR(255)
-- InsuranceInfo : VARCHAR(150)
-- PatientStatus : VARCHAR(50)
-- CreatedAt : TIMESTAMP
-- UpdatedAt : TIMESTAMP
+- id : SERIAL
+- name : VARCHAR(100)
+- gender : VARCHAR(10)
+- date_of_birth : DATE
+- contact_info : VARCHAR(150)
+- address : VARCHAR(255)
+- phone_number : VARCHAR(15)
+- email : VARCHAR(150)
+- medical_history : TEXT
+- allergies : TEXT
+- patient_notes : TEXT
 
 Primary Key:
-- PatientID
+- id
 
 Foreign Keys:
 - None
@@ -182,10 +161,15 @@ Relationships:
 - None
 
 Indexes:
-- PatientID
+- id
+- name
 
 Constraints:
-- NOT NULL : Name, Gender, Age, ContactInfo, Address, InsuranceInfo, PatientStatus
+- id: NOT NULL
+- name: NOT NULL
+- medical_history: NOT NULL
+- allergies: NOT NULL
+- patient_notes: NOT NULL
 
 Normalization:
 - First Normal Form (1NF)
@@ -193,10 +177,7 @@ Normalization:
 - Third Normal Form (3NF)
 
 Security Considerations:
-- Data Encryption: Use PostgreSQL's built-in pgcrypto extension for encrypting sensitive data.
-- User Authentication: Implement OAuth 2.0 for user authentication and JWT tokens for secure communication between the client and server.
-- Role-Based Access Control: Use PostgreSQL's role management features to restrict access based on user roles.
-- Backup Strategy: Use PostgreSQL's built-in backup tools and schedule regular backups. Employ third-party tools for disaster recovery and data restoration.
-
-Expected Outcome:
-A secure, scalable, and normalized PostgreSQL database design suitable for the Hospital Management System project, ensuring efficient data management and secure access.
+- Data Encryption: Patient notes, medical history, and allergies will be encrypted.
+- User Authentication: JWT for user sessions.
+- Role-Based Access Control: Roles for different user types (Administrators, Nurses, Doctors) will be defined.
+- Backup Strategy: Regular backups with secure encryption and scheduled rollbacks.

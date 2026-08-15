@@ -1,81 +1,181 @@
-Certainly! Below is a simplified example of JavaScript functionality for a basic hospital management system. This example includes form validation, event handling, dynamic content updates, and error handling. Note that this is a basic setup and doesn't include a full-featured system. For a full-featured hospital management system, additional components like database integration, user authentication, and more complex validation would be necessary.
+Certainly! Below is a simple implementation of a basic Hospital Management System using HTML, CSS, and JavaScript. This example includes form validation, event handling, dynamic content updates, and basic error handling. The system will allow for creating, updating, and displaying patient records.
 
+### HTML
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Register Patient</h1>
+        <form id="patientForm">
+            <div>
+                <label for="patientName">Name:</label>
+                <input type="text" id="patientName" name="patientName" required>
+            </div>
+            <div>
+                <label for="patientAge">Age:</label>
+                <input type="number" id="patientAge" name="patientAge" required>
+            </div>
+            <div>
+                <label for="patientGender">Gender:</label>
+                <select id="patientGender" name="patientGender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button type="button" id="savePatient">Save</button>
+        </form>
+
+        <h1>Patient List</h1>
+        <table id="patientTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+### CSS (styles.css)
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+```
+
+### JavaScript (script.js)
 ```javascript
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('hospital-form');
+document.addEventListener('DOMContentLoaded', () => {
+    const patientForm = document.getElementById('patientForm');
+    const saveButton = document.getElementById('savePatient');
+    const patientTableBody = document.getElementById('patientTable').querySelector('tbody');
 
-    function validateForm() {
-        const formElements = form.elements;
-        let isValid = true;
+    let patients = [];
 
-        Array.from(formElements).forEach((element) => {
-            if (element.tagName === 'INPUT' && element.type === 'text') {
-                if (element.value.trim() === '') {
-                    element.classList.add('invalid');
-                    isValid = false;
-                } else {
-                    element.classList.remove('invalid');
-                }
-            }
-        });
+    // Event Listener for Save Button
+    saveButton.addEventListener('click', (event) => {
+        event.preventDefault();
 
-        if (!isValid) {
-            alert('Please fill out all required fields.');
+        const patientName = document.getElementById('patientName').value;
+        const patientAge = document.getElementById('patientAge').value;
+        const patientGender = document.getElementById('patientGender').value;
+
+        if (validateForm()) {
+            const newPatient = { name: patientName, age: patientAge, gender: patientGender };
+            patients.push(newPatient);
+            updatePatientList();
+            clearForm();
         }
+    });
+
+    // Function to validate the form
+    function validateForm() {
+        const name = document.getElementById('patientName').value;
+        const age = document.getElementById('patientAge').value;
+        const gender = document.getElementById('patientGender').value;
+
+        const namePattern = /^[a-zA-Z\s]+$/;
+        const agePattern = /^[0-9]+$/;
+        const genderPattern = /^(male|female|other)$/;
+        
+        if (!namePattern.test(name)) {
+            alert('Name should only contain letters and spaces');
+            return false;
+        }
+        if (!agePattern.test(age)) {
+            alert('Age should be a number');
+            return false;
+        }
+        if (!genderPattern.test(gender)) {
+            alert('Gender must be one of: male, female, other');
+            return false;
+        }
+
+        return true;
     }
 
-    // Event listeners
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        validateForm();
-    });
+    // Function to update the patient list in the table
+    function updatePatientList() {
+        patientTableBody.innerHTML = '';
+        patients.forEach((patient, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${patient.name}</td>
+                <td>${patient.age}</td>
+                <td>${patient.gender}</td>
+            `;
+            patientTableBody.appendChild(row);
+        });
+    }
 
-    document.getElementById('add-doctor').addEventListener('click', function(event) {
-        event.preventDefault();
-
-        // Simulate adding doctor
-        const newDoctor = '<div class="doctor-item"><p>Dr. ' + document.getElementById('doctor-name').value + '</p></div>';
-        document.getElementById('doctor-list').innerHTML += newDoctor;
-        form.reset();
-    });
-
-    document.getElementById('delete-doctor').addEventListener('click', function(event) {
-        event.preventDefault();
-        const doctors = document.querySelectorAll('.doctor-item');
-        doctors[0].remove();
-    });
-
-    document.getElementById('update-doctor').addEventListener('click', function(event) {
-        event.preventDefault();
-        const newDoctor = document.getElementById('doctor-name').value;
-        const doctorItem = document.createElement('div');
-        doctorItem.className = 'doctor-item';
-        doctorItem.innerHTML = `<p>Dr. ${newDoctor}</p>`;
-        document.getElementById('doctor-list').appendChild(doctorItem);
-
-        form.reset();
-    });
+    // Function to clear the form
+    function clearForm() {
+        document.getElementById('patientName').value = '';
+        document.getElementById('patientAge').value = '';
+        document.getElementById('patientGender').value = 'male';
+    }
 });
 ```
 
-In this code snippet:
-- Form validation is implemented for required fields.
-- Event listeners are added for form submission, deleting doctors, and updating doctor details.
-- Dynamic content updates are handled by appending new doctor items to the `doctor-list` div.
+### Explanation:
+- **HTML**: Provides a simple form for adding new patient records and a table to display them.
+- **CSS**: Ensures the form and table are styled properly.
+- **JavaScript**: Handles form submission, validates input, and dynamically updates the patient list in the table.
 
-Please note that this example assumes you have an HTML structure like this:
-
-```html
-<div id="hospital-form">
-    <form>
-        <label for="doctor-name">Name:</label>
-        <input type="text" id="doctor-name" name="doctor-name" required>
-        <button type="submit">Add Doctor</button>
-        <button id="delete-doctor">Delete Last Doctor</button>
-        <button id="update-doctor">Update Doctor</button>
-    </form>
-    <div id="doctor-list"></div>
-</div>
-```
-
-This example can be extended with more features and error handling as per your specific requirements.
+This basic system can be expanded with more features and functionalities such as deleting, editing, and searching patient records.

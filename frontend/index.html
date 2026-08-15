@@ -8,68 +8,74 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Hospital Management System</div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
 
-    <main>
-        <section id="login">
-            <h1>Login</h1>
-            <form>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-        </section>
+    <div class="container">
+        <header>
+            <h1>Hospital Management System</h1>
+        </header>
 
-        <section id="registration">
-            <h1>Register</h1>
-            <form>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Register</button>
-            </form>
-        </section>
+        <main>
+            <section class="login">
+                <h2>Login</h2>
+                <form>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <button type="submit">Login</button>
+                </form>
+            </section>
 
-        <section id="dashboard">
-            <h1>Dashboard</h1>
-            <p>Welcome to your dashboard</p>
-        </section>
+            <section class="register">
+                <h2>Register</h2>
+                <form>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <button type="submit">Register</button>
+                </form>
+            </section>
 
-        <section id="project-generation">
-            <h1>Generate Project</h1>
-            <form>
-                <input type="text" placeholder="Project Idea" required>
-                <button type="submit">Generate Project</button>
-            </form>
-        </section>
+            <section class="dashboard">
+                <h2>Dashboard</h2>
+                <p>Welcome to the Dashboard</p>
+            </section>
 
-        <section id="project-history">
-            <h1>Project History</h1>
-            <p>View and manage past projects</p>
-        </section>
+            <section class="project-generation">
+                <h2>Generate Project</h2>
+                <form>
+                    <label for="project-name">Project Name:</label>
+                    <input type="text" id="project-name" name="project-name" required>
+                    <label for="prompt">Prompt:</label>
+                    <input type="text" id="prompt" name="prompt" required>
+                    <button type="submit">Generate</button>
+                </form>
+            </section>
 
-        <section id="settings">
-            <h1>Settings</h1>
-            <p>Customize your dashboard</p>
-        </section>
-    </main>
+            <section class="project-history">
+                <h2>Project History</h2>
+                <ul>
+                    <li>Project 1 - Completed</li>
+                    <li>Project 2 - In Progress</li>
+                    <li>Project 3 - Failed</li>
+                </ul>
+            </section>
 
-    <footer>
-        <p>&copy; 2023 Hospital Management System. All rights reserved.</p>
-    </footer>
+            <section class="logout">
+                <button>Logout</button>
+            </section>
+        </main>
+    </div>
 </body>
 </html>
 ```
